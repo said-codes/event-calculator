@@ -1,27 +1,21 @@
 let events = [];
 let arr = []; // for load information
-
-const eventName = document.querySelector('#eventName');
-const eventDate = document.querySelector('#eventDate');
-const buttonAdd = document.querySelector('#bAdd');
-const eventsContainer = document.querySelector('#eventsContainer');
-
+const eventName = document.querySelector('#event-name');
+const eventDate = document.querySelector('#event-date');
+const buttonAdd = document.querySelector('#button-add');
+const eventsContainer = document.querySelector('#events-container');
 const json = load();
-
 try {
   arr = JSON.parse(json); // convert to an object
 } catch (err) {
   arr = [];
 }
-
-events = events ? [...arr] : [];
-
+events = arr ? [...arr] : [];
 renderEvents();
 
 document.querySelector('form').addEventListener('submit', (e) => {
   e.preventDefault();
 });
-
 buttonAdd.addEventListener('click', (e) => {
   addEvent();
 });
@@ -66,14 +60,13 @@ function renderEvents() {
       <div class="event-name">${event.name}</div>
       <div class="event-date">${event.date}</div>
       <div class="actions">
-      <button  class="bDelete" data-id="${event.id}">Delete</button>
+      <button  class="button-delete" data-id="${event.id}">Delete</button>
       </div>
       </div>
     `;
   });
   eventsContainer.innerHTML = eventsHTML.join('');
-
-  document.querySelectorAll('.bDelete').forEach((button) => {
+  document.querySelectorAll('.button-delete').forEach((button) => {
     button.addEventListener('click', (e) => {
       const id = button.getAttribute('data-id');
       events = events.filter((event) => event.id !== id);
